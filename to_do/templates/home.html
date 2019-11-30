@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% load static %}
+
+
+{% block content %}
+    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+    <div class="row mt-5">
+	<div class="col">
+		<h2>To Do </h2>
+    <form action="/login/user/" method="pxost" class="form-inline">
+		  <input type="text" required name="content" class="form-control mb-2 mr-sm-2" placeholder="Add your todo here">
+      <button type="submit" class="btn btn-primary mb-2">Create</button>
+    </form>
+  </div>
+</div>
+  <div class="row mt-4">
+    <div class="col">
+      <ul class="list-group">
+        {% for todo_item in todo_items %}
+            {% if user.is_authenticated %}
+                <li class="list-group-item list-group-item-info mt-2">{{ todo_item.text }}
+                <div class="float-right">
+                    <form action="delete_todo/{{todo_item.id}}/" action="post">
+                        <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                    </form>
+                </div>
+            {% endif %}
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+  <div>
+{% endblock content %}
